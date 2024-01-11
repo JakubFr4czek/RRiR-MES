@@ -70,9 +70,11 @@ public class PlotElements extends JFrame {
 
             XYSeries series = new XYSeries("" + i);
 
-            for (int j = 0; j < x.size(); j += 1) {
+            for (int j = 0; j < x.get(i).size(); j += 1) {
 
                 series.add(x.get(i).get(j), y.get(i).get(j));
+                //System.out.println(x.get(i).get(j));
+                //System.out.println(y.get(i).get(j));
 
             }
 

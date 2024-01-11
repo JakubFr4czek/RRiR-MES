@@ -14,14 +14,13 @@ import static java.lang.Math.*;
 
 public class Solver {
 
-    public final int integrationPointCount; // > 10
+    public final int integrationPointCount = 30; // > 10
     private final UnivariateIntegrator integrator;
     private double h;
     private int elements;
 
-    Solver(int integrationPointCount){
+    Solver(){
 
-        this.integrationPointCount = integrationPointCount;
         this.integrator = new IterativeLegendreGaussIntegrator(integrationPointCount, 1e-12, 1e-12);
 
     }
@@ -212,6 +211,40 @@ public class Solver {
 
     }
 
+    /*private void plotElements(){
+
+        List<List<Double>> xs = new ArrayList<>();
+        List<List<Double>> ys = new ArrayList<>();
+
+        List<Double> x = new ArrayList<>();
+        List<Double> y = new ArrayList<>();
+
+        int n = 100;
+
+        for(double i = 0; i < h; i += h/n){
+
+            x.add(i);
+            y.add(e(0, i));
+
+            //System.out.println(i);
+            //System.out.println(e(0, i));
+
+        }
+
+        xs.add(x);
+        ys.add(y);
+
+        SwingUtilities.invokeLater(() -> {
+            PlotElements plotElements = new PlotElements("Elements", xs, ys);
+            plotElements.setSize(800, 400);
+            plotElements.setLocationRelativeTo(null);
+            plotElements.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            plotElements.setVisible(true);
+        });
+
+    }*/
+
+
     private void plotElements(){
 
         List<List<Double>> xs = new ArrayList<>();
@@ -219,21 +252,16 @@ public class Solver {
 
         for(int j = 0; j < elements; j += 1) {
 
-            final int n = 1000;
-            final double step = 2.0d / n;
-
             List<Double> x = new ArrayList<>();
             List<Double> y = new ArrayList<>();
 
-            for (int i = 0; i < n + 1; i += 1) {
+            int n = 100;
 
-                x.add(i * step);
+            for (double i = 0; i < 2.0; i += h / n) {
 
-            }
-
-            for (int i = 0; i < n + 1; i += 1) {
-
-                y.add(e(j, x.get(i)));
+                x.add(i);
+                y.add(e(j, i));
+                //y.add(e_prim(j, i));
 
             }
 
@@ -251,6 +279,5 @@ public class Solver {
         });
 
     }
-
 
 }

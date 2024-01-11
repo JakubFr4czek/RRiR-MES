@@ -17,8 +17,23 @@ public class Main {
 
     public static void main(String[] args) {
 
-       Solver solver = new Solver(30);
-       solver.solve(6);
+       Solver solver = new Solver();
+
+       if(args.length == 0){
+
+           //Domyślnie dla 3 elementów
+           solver.solve(6);
+
+       } else if (Integer.parseInt(args[0]) < 3) {
+
+           throw new RuntimeException("Liczba elementóœ musi być >= 3");
+
+       } else {
+
+           //Użytkownik podał liczbę elementów
+           solver.solve(Integer.parseInt(args[0]));
+
+       }
 
     }
 
