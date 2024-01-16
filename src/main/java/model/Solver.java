@@ -3,6 +3,7 @@ package model;
 import org.apache.commons.math3.analysis.integration.IterativeLegendreGaussIntegrator;
 import org.apache.commons.math3.analysis.integration.UnivariateIntegrator;
 import org.apache.commons.math3.linear.*;
+import org.apache.commons.math3.ml.distance.EuclideanDistance;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -138,11 +139,19 @@ public class Solver {
 
     }
 
+    private int k(double x){
+
+        if (x >= 0 && x <= 1) return 1;
+        else if(x > 1 && x <= 2) return 2;
+        throw new RuntimeException("Wrong k function argument!");
+
+    }
+
     private double B(int i, int j, double a, double b){
 
         return this.integrator.integrate(
                 Integer.MAX_VALUE,
-                x -> e_prim(i, x) * e_prim(j, x),
+                x -> k(x) * e_prim(i, x) * e_prim(j, x),
                 a,
                 b
         ) - (e(i, 0) * e(j, 0));
